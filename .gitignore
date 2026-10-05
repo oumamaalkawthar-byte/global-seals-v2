@@ -1,0 +1,8 @@
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+
+# Local QA leftovers
+_qa-*.html

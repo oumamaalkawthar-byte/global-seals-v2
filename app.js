@@ -1,0 +1,38 @@
+/* Shared navigation, six-product catalogue and mailto enquiry. Scene logic is separate. */
+const $ = (selector) => document.querySelector(selector);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const menuButton = $('.menu-toggle');
+const navigation = $('#navigation');
+function setMenuOpen(open) {
+  menuButton.setAttribute('aria-expanded',String(open));
+  menuButton.setAttribute('aria-label',open ? 'Close navigation menu' : 'Open navigation menu');
+  menuButton.querySelector('.menu-label').textContent = open ? 'Close' : 'Menu';
+  navigation.hidden = !open;
+  navigation.classList.toggle('is-open',open);
+}
+function closeMenu() { setMenuOpen(false); }
+menuButton.addEventListener('click',() => setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true'));
+navigation.addEventListener('click', (event) => { if (event.target.closest('a')) closeMenu(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && navigation.classList.contains('is-open')) { closeMenu(); menuButton.focus(); } });
+document.addEventListener('click', (event) => { if (!event.target.closest('.header')) closeMenu(); });
+$('#year').textContent = new Date().getFullYear();
+$('#quote-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const selectedProduct = data.get('product') || 'Security seal';
+  const subject = selectedProduct + ' enquiry' + (data.get('company') ? ` — ${data.get('company')}` : '');
+  const body = `Hello Global Seals,\n\nI would like to enquire about ${selectedProduct}.\n\nName: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company') || 'Not specified'}\nApproximate quantity: ${data.get('quantity') || 'Not specified'}\n\nRequirements:\n${data.get('requirements')}\n\nThank you.`;
+  window.location.href = `mailto:info@globalseals.pk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  $('#form-status').textContent = 'Your email draft is ready to open. Send it from your email app; if no app opens, email info@globalseals.pk directly.';
+});
+
+
+// Quote links work for every static product panel and the comparison table.
+document.querySelectorAll('[data-quote-product]').forEach(link => link.addEventListener('click', () => {
+ $('#enquiry-product').value = link.dataset.quoteProduct;
+}));
+
+// Links to the comparison from outside the product section should land on it open, not collapsed.
+document.querySelectorAll('a[href="#range-comparison"]').forEach(link => link.addEventListener('click', () => {
+ $('#range-comparison').open = true;
+}));
