@@ -24,24 +24,49 @@
   if(updateURL)history.replaceState(null,'','#'+panels[index].id);
   if(announce)status.textContent=tabs[index].querySelector('strong').textContent+' selected.';
  }
- function selectHash(){const i=panels.findIndex(panel=>'#'+panel.id===location.hash);if(i>=0)select(i,{announce:false});}
+ // Autoplay: advance every 3s while the range is on screen, including under a mouse pointer. Keyboard focus pauses it; choosing a product or touching
+ // the range stops it for good so content never changes under someone reading it. The button is the explicit control.
+ const INTERVAL=3000;let playing=!reduced.matches,inView=false,focused=false,timer=0;
+ const autoplay=document.createElement('div');autoplay.className='range-autoplay';
+ autoplay.innerHTML='<span>Auto-rotating products</span><button type="button" aria-pressed="false"></button>';
+ const autoButton=autoplay.querySelector('button');selector.after(autoplay);
+ root.style.setProperty('--range-interval',INTERVAL+'ms');
+ function running(){return playing&&inView&&!focused&&!document.hidden;}
+ function renderButton(){autoButton.innerHTML=playing?'<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0h3v10H1zM6 0h3v10H6z"/></svg>Pause':'<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>Play';autoButton.setAttribute('aria-label',playing?'Pause product auto-rotation':'Start product auto-rotation');autoplay.firstChild.textContent=playing?'Auto-rotating products':'Auto-rotation paused';}
+ function schedule(){
+  clearTimeout(timer);root.classList.remove('range-playing');
+  if(!running())return;
+  void root.offsetWidth;// restart the progress line from zero
+  root.classList.add('range-playing');
+  timer=setTimeout(()=>{select((active+1)%panels.length,{announce:false});schedule();},INTERVAL);
+ }
+ function stop(){if(!playing)return;playing=false;renderButton();schedule();}
+ autoButton.addEventListener('click',()=>{playing=!playing;renderButton();schedule();});
+ new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;schedule();},{threshold:.35}).observe(root.querySelector('.range-panels'));
+ root.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'&&!autoplay.contains(e.target))stop();});
+ root.addEventListener('focusin',e=>{if(!autoplay.contains(e.target)&&e.target.matches(':focus-visible')){focused=true;schedule();}});
+ root.addEventListener('focusout',()=>{focused=root.contains(document.activeElement)&&!autoplay.contains(document.activeElement);schedule();});
+ document.addEventListener('visibilitychange',schedule);
+ reduced.addEventListener('change',()=>{if(reduced.matches)stop();});
+ renderButton();
+ function selectHash(){const i=panels.findIndex(panel=>'#'+panel.id===location.hash);if(i>=0){stop();select(i,{announce:false});}}
  select(0,{announce:false});selectHash();
  addEventListener('hashchange',selectHash);
  tabs.forEach((tab,i)=>{
-  tab.addEventListener('click',event=>{event.preventDefault();select(i,{updateURL:true});});
+  tab.addEventListener('click',event=>{event.preventDefault();stop();select(i,{updateURL:true});});
   tab.addEventListener('keydown',event=>{
    let target=i;
    if(event.key==='ArrowRight')target=(i+1)%tabs.length;
    else if(event.key==='ArrowLeft')target=(i+tabs.length-1)%tabs.length;
    else if(event.key==='Home')target=0;
    else if(event.key==='End')target=tabs.length-1;
-   else if(event.key===' '){event.preventDefault();select(i);return;}
+   else if(event.key===' '){event.preventDefault();stop();select(i);return;}
    else return;
-   event.preventDefault();select(target,{focus:true});
+   event.preventDefault();stop();select(target,{focus:true});
   });
  });
  root.querySelectorAll('[data-select-product]').forEach(link=>link.addEventListener('click',event=>{
-  event.preventDefault();select(Number(link.dataset.selectProduct),{updateURL:true});
+  event.preventDefault();stop();select(Number(link.dataset.selectProduct),{updateURL:true});
   panels[active].focus({preventScroll:true});panels[active].scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
  }));
  root.querySelector('.range-compare-link').addEventListener('click',()=>{root.querySelector('#range-comparison').open=true;});

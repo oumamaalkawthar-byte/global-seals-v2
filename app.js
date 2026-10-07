@@ -32,6 +32,25 @@ document.querySelectorAll('[data-quote-product]').forEach(link => link.addEventL
  $('#enquiry-product').value = link.dataset.quoteProduct;
 }));
 
+// Scroll reveal. Only elements still below the fold are hidden, so nothing on screen at load flashes or waits.
+// Siblings in a group are staggered slightly. Skipped entirely for reduced motion or without IntersectionObserver.
+if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+  const groups = ['.range-heading', '.section-heading', '.application-card', '.about-mark', '.about-copy', '.industries-intro', '.industry-list article', '.blog-header', '.blog-featured', '.blog-card', '.perspectives-heading', '.perspectives-track', '.contact-intro', '.quote-form'];
+  const reveal = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-in');
+    // Hand the element back to its own styles (e.g. card hover lift) once it has arrived.
+    entry.target.addEventListener('transitionend', (event) => { if (event.target === entry.target && event.propertyName === 'opacity') entry.target.classList.remove('reveal', 'is-in'); });
+    reveal.unobserve(entry.target);
+  }), { rootMargin: '0px 0px -8% 0px' });
+  groups.forEach((selector) => document.querySelectorAll(selector).forEach((element, index) => {
+    if (element.getBoundingClientRect().top < window.innerHeight) return;
+    element.style.setProperty('--reveal-delay', (index % 3) * 0.09 + 's');
+    element.classList.add('reveal');
+    reveal.observe(element);
+  }));
+}
+
 // Links to the comparison from outside the product section should land on it open, not collapsed.
 document.querySelectorAll('a[href="#range-comparison"]').forEach(link => link.addEventListener('click', () => {
  $('#range-comparison').open = true;

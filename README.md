@@ -31,9 +31,19 @@ The browser integration was unavailable during this session; visual browser QA r
 - Application cards and industry rows link to the relevant product panel (#seal-*), which catalogue.js selects via hashchange. "Compare the range" opens the comparison table.
 - Quote form: optional approximate quantity field (included in the email draft); 16px inputs on phones to avoid iOS focus zoom.
 - Footer: explore links, product links and contact details.
+- Testimonials use the supplied dark photo-card design. Photos (assets/testimonials/placeholder-1..3.jpg), the "John Doe" names and quotes are placeholders; swap the files in place when real content arrives, then remove the sample disclosure.
+- Design system pass: one brand type pair (Barlow Condensed + DM Sans, loaded once via a preconnected link in index.html; no CSS @imports), one palette (navy, navy-deep, cyan, seal-yellow accent) and shared radius tokens (--radius, --radius-sm in styles.css) across all sections. Testimonials and blog keep their supplied layouts but use these tokens.
+- Section rhythm: product (light), applications, about, industries, blog (dark highlighted band), testimonials (light), contact (dark).
+- Product range auto-rotates every 3s (catalogue.js) only while on screen, including while the mouse is over it; keyboard focus pauses it, it stops for good once a visitor picks a product or touches the range, has a Pause/Play control, and is off for reduced motion. A yellow line on the active tab shows the 3s progress.
+- Scroll reveal (app.js + styles.css) fades sections up as they arrive; elements already on screen at load are never hidden.
+- Removed unused runtime code: products.js is no longer loaded by the page (build-catalogue.cjs still reads it) and old catalogue CSS was deleted.
+- Blog (blog.css, #blog) follows the supplied "Behind the lens" spec, adapted: static HTML instead of React/Supabase, and site illustrations instead of videos. Posts, titles and links (#blog) are placeholders until real articles exist.
 - Full-page QA via headless Chrome (DevTools protocol) at 390x844 mobile, 1280x720, 1280x800 and 1440x900: no horizontal overflow, no JS/network errors, journey reaches the destination state, product tabs/industry chips/comparison/menu/quote draft all work.
 - Journey fixes from that pass: the road-parallax foreground no longer reappears (shifted and zoomed) at destination inspection; the desktop hero heading is sized to keep "Big confidence." on one line; the "Follow one seal" link hides on desktop screens up to 820px tall, where it collided with the seal inset.
 - Not yet tested on physical iOS/Android devices or Safari/Firefox.
 
 ## Product showroom update
 Six product panels now ship directly in index.html, including application, feature, construction and real product-detail links. Run node build-catalogue.cjs after editing products.js to regenerate this content and the ItemList schema. No prices, reviews or certification claims are fabricated. Catalogue tabs are progressively enhanced: without JavaScript, all six product articles remain readable. Keyboard arrow keys, Home/End, deep links, native-dialog image inspection and reduced-motion support are included. The visual treatment is lightweight 2.5D illustration, not a 360-degree or engineering model. Product-specific enquiry links and a comparison table support procurement decisions.
+
+## Completion pass (7 October)
+Preserved the latest section designs. Replaced blog placeholder links with four locally authored application guides and a guide index; added mobile-first procurement FAQs. Sample testimonial names now identify the sample perspective instead of fictitious people. Previous version saved in global-seals-v2-before-completion-20261007. Enquiry remains an email draft, not a backend order submission.
