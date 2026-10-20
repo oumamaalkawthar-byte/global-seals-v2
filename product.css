@@ -1,0 +1,60 @@
+/* Product detail pages. Mobile first; brand tokens from styles.css. Touch targets >= 48px, body copy 16px,
+   AA contrast, no layout shift (fixed image ratios), and a bottom CTA bar that never covers content. */
+.pd-page main{font-size:16px}
+.pd-page p{line-height:1.7}
+/* Google mobile legibility: no text under 12px on product pages. */
+.pd-page main .eyebrow{font-size:12px;letter-spacing:1.6px}
+/* Breadcrumb */
+.pd-breadcrumb{padding:14px 5% 0}.pd-breadcrumb ol{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0;font-size:13px;color:var(--muted)}.pd-breadcrumb li{display:flex;align-items:center;gap:4px}.pd-breadcrumb li+li:before{content:'/';color:#9aabb1}.pd-breadcrumb a{display:inline-flex;align-items:center;min-height:44px;min-width:48px;justify-content:center;padding:0 6px;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#b5c4c8}.pd-breadcrumb a:hover{color:var(--cyan)}.pd-breadcrumb [aria-current]{padding:0 4px;color:var(--ink);font-weight:600}
+/* Hero: title, image, then details and CTAs on phones; image beside details on wide screens. */
+.pd-hero{display:grid;grid-template-areas:"head" "media" "body";gap:22px;padding:12px 5% 48px}
+.pd-head{grid-area:head}.pd-head .eyebrow{margin-bottom:12px}.pd-head h1{font-size:clamp(44px,12vw,58px);line-height:.98}.pd-lead{margin-top:12px;font-size:17px;color:var(--muted)}
+.pd-media{grid-area:media;margin:0}.pd-studio{position:relative;aspect-ratio:4/3;max-height:300px;margin:0 auto;display:grid;place-items:center;overflow:hidden;border:1px solid #dbe4e1;border-radius:var(--radius);background:radial-gradient(ellipse at 50% 38%,#fff 0%,#f1f6f3 50%,#dfe9e6 100%)}.pd-studio:after{content:'';position:absolute;left:18%;right:18%;bottom:9%;height:9%;border-radius:50%;background:radial-gradient(#173f3d26,transparent 70%)}.pd-studio img{position:relative;z-index:1;width:84%;height:84%;object-fit:contain}
+.pd-media figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:12px;color:var(--muted)}.pd-media figcaption span:first-child{font:11px monospace;letter-spacing:1px;color:#345661}
+/* Phones: the quote CTA follows the one-line summary so it sits in the first screen; facts come after. */
+.pd-body{grid-area:body;display:flex;flex-direction:column}.pd-summary{order:1}.pd-actions{order:2}.pd-reassure{order:3}.pd-facts{order:4}.pd-assurance{order:5}.pd-summary{font-size:17px;color:#2f4a55}
+.pd-facts{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--line)}.pd-facts li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.pd-facts span{font-size:13px;color:var(--muted)}.pd-facts strong{font-size:15px;font-weight:600}
+.pd-actions{display:flex;flex-direction:column;gap:12px;margin-top:20px}.pd-primary{min-height:54px;font-size:15px;width:100%}.pd-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 18px;border:1px solid #b9cdd2;border-radius:var(--radius-sm);font-size:15px;font-weight:600;color:var(--ink);background:#fff}.pd-secondary:hover{border-color:var(--cyan);color:var(--cyan)}.pd-secondary svg{width:18px;height:18px;color:var(--cyan)}
+.pd-reassure{margin-top:12px;font-size:14px;color:var(--muted)}
+.pd-assurance{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;margin:18px 0 0;padding:0;font-size:14px;font-weight:600;color:#2f4a55}.pd-assurance li{display:flex;align-items:center;gap:8px}.pd-assurance svg{width:20px;height:20px;color:#2f7d6d}
+/* In-page navigation: desktop only, sticky, carries the primary CTA. */
+.pd-subnav{display:none}
+/* Shared section frame */
+.pd-section{padding:56px 5%}.pd-section-head{max-width:640px}.pd-section-head h2{font-size:38px;line-height:1.04}.pd-section-head>p:not(.eyebrow){margin-top:14px;color:var(--muted)}
+.pd-overview{background:var(--paper)}.pd-specs{margin:28px 0 0;background:#fff;border:1px solid #dbe4e1;border-radius:var(--radius);padding:4px 20px}.pd-specs>div{display:grid;gap:4px;padding:16px 0;border-bottom:1px solid var(--line)}.pd-specs>div:last-child{border-bottom:0}.pd-specs dt{font-size:13px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#345661}.pd-specs dd{margin:0;color:#3d5560}
+.pd-use-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;list-style:none;margin:28px 0 0;padding:0}.pd-use-grid li{position:relative;display:flex;flex-direction:column;gap:12px;min-height:128px;padding:18px;border:1px solid #dbe4e1;border-radius:var(--radius);background:#fff}.pd-use-grid svg{width:26px;height:26px;color:var(--cyan)}.pd-use-grid strong{font-size:15px;line-height:1.35;margin-top:auto}.pd-use-index{position:absolute;top:16px;right:16px;font:12px monospace;color:#8aa0a7}
+/* Mid-page CTA band */
+.pd-band{display:grid;gap:22px;margin:0 5%;padding:30px 24px;border-radius:var(--radius);background:var(--navy);color:#fff}.pd-band h2{font-size:32px;line-height:1.05;color:#fff}.pd-band p{margin-top:10px;color:#b6cbd2}.pd-band-actions{display:flex;flex-direction:column;gap:10px}.pd-band .button-white{width:100%;min-height:52px;font-size:14px}.pd-band-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;font-weight:600;color:#fff;border:1px solid #ffffff40;border-radius:var(--radius-sm)}.pd-band-link:hover{border-color:#81ccdc;color:#a6e0ec}
+/* Before you order */
+.pd-steps{display:grid;gap:12px;list-style:none;counter-reset:step;margin:28px 0 0;padding:0}.pd-steps li{counter-increment:step;display:grid;grid-template-columns:40px 1fr;gap:4px 14px;padding:18px;border:1px solid #dbe4e1;border-radius:var(--radius)}.pd-steps li:before{content:counter(step,decimal-leading-zero);grid-row:1/3;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#e8f3f6;color:#006f93;font-weight:700;font-size:14px}.pd-steps strong{font-size:16px}.pd-steps span{font-size:15px;color:var(--muted);line-height:1.6}
+.pd-guide{position:relative;display:flex;flex-direction:column;gap:6px;margin-top:16px;padding:20px 56px 20px 20px;border-radius:var(--radius);background:var(--paper);border:1px solid #dbe4e1;min-height:48px}.pd-guide .eyebrow{margin:0}.pd-guide strong{font-size:16px;line-height:1.4}.pd-guide:hover strong{color:var(--cyan)}.pd-guide-arrow{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--cyan)}
+/* FAQ */
+.pd-faq{background:var(--paper)}.pd-faq-list{margin-top:24px;border-top:1px solid #c8d5d4}.pd-faq-list details{border-bottom:1px solid #c8d5d4}.pd-faq-list summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:14px 0;cursor:pointer;font-size:16px;font-weight:600;line-height:1.45}.pd-faq-list summary::-webkit-details-marker{display:none}.pd-faq-list summary:after{content:'+';flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #c8d5d4;color:var(--cyan);font-size:20px;font-weight:400;transition:transform .2s}.pd-faq-list details[open] summary:after{transform:rotate(45deg)}.pd-faq-list details p{padding:0 0 18px;color:#3d5560;max-width:720px}
+/* Related products */
+.pd-related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;list-style:none;margin:28px 0 0;padding:0}.pd-related-grid a{display:flex;flex-direction:column;height:100%;padding:12px 12px 16px;border:1px solid #dbe4e1;border-radius:var(--radius);background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}.pd-related-grid a:hover{border-color:var(--cyan);box-shadow:0 18px 32px -24px #102d3b55;transform:translateY(-2px)}.pd-related-media{display:grid;place-items:center;aspect-ratio:4/3;border-radius:var(--radius-sm);background:linear-gradient(160deg,#f3f7f6,#e1eae8)}.pd-related-media img{width:70%;height:90%;object-fit:contain}.pd-related-grid strong{margin-top:12px;font-size:15px}.pd-related-grid a>span:last-child{margin-top:4px;font-size:13px;line-height:1.5;color:var(--muted)}
+/* Quote section reuses the homepage contact styles; keep it clear of the sticky bar. */
+.pd-page #quote{scroll-margin-top:12px}
+/* Bottom CTA bar on phones and tablets: appears once the hero buttons scroll away, hides at the quote form. */
+.pd-sticky-cta{position:fixed;z-index:30;left:0;right:0;bottom:0;display:flex;gap:10px;padding:10px 5% calc(10px + env(safe-area-inset-bottom,0px));background:#fffffff5;backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -10px 24px -18px #102d3b66;transform:translateY(0);transition:transform .25s}.pd-sticky-cta.is-away{transform:translateY(110%)}.pd-sticky-cta .button{flex:1;min-height:50px;font-size:15px}.pd-sticky-call{display:grid;place-items:center;flex:0 0 50px;height:50px;border:1px solid #b9cdd2;border-radius:var(--radius-sm);color:var(--cyan);background:#fff}.pd-sticky-call svg{width:22px;height:22px}
+.pd-page.has-sticky-cta .footer{padding-bottom:84px}
+@media(min-width:701px){
+ .pd-breadcrumb{padding:18px 6% 0}.pd-hero{padding:16px 6% 64px}.pd-actions{flex-direction:row;flex-wrap:wrap}.pd-primary{width:auto;padding-inline:28px}.pd-section{padding:72px 6%}.pd-section-head h2{font-size:48px}
+ .pd-specs{padding:4px 28px}.pd-specs>div{grid-template-columns:200px 1fr;gap:24px;padding:20px 0}
+ .pd-use-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.pd-band{margin:0 6%;padding:40px;grid-template-columns:1fr auto;align-items:center}.pd-band-actions{min-width:240px}
+ .pd-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.pd-related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(min-width:1000px){
+ .pd-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"media head" "media body";grid-template-rows:auto 1fr;column-gap:7%;row-gap:18px;align-items:start;padding:20px max(6%,calc((100vw - 1280px)/2)) 80px}
+ .pd-head{align-self:end}.pd-head h1{font-size:clamp(56px,5vw,74px)}.pd-media{position:sticky;top:88px}.pd-studio{aspect-ratio:1/1;max-height:none}
+ /* Wide screens: facts before the CTAs, in reading order. */
+ .pd-facts{order:2}.pd-actions{order:3}.pd-reassure{order:4}
+ .pd-breadcrumb,.pd-section{padding-inline:max(6%,calc((100vw - 1280px)/2))}.pd-band{margin-inline:max(6%,calc((100vw - 1280px)/2))}
+ .pd-subnav{position:sticky;top:0;z-index:25;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:10px max(6%,calc((100vw - 1280px)/2));background:#fffffff2;backdrop-filter:blur(8px);border-block:1px solid var(--line)}.pd-subnav>div{display:flex;gap:6px}.pd-subnav>div a{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:600;color:#3d5560}.pd-subnav>div a:hover,.pd-subnav>div a[aria-current=true]{background:#e8f3f6;color:#006f93}.pd-subnav-cta{min-height:48px;padding:12px 20px;font-size:14px}
+ .pd-section{scroll-margin-top:72px}.pd-overview{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:7%;align-items:start}.pd-overview .pd-specs{margin-top:0}
+ .pd-order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px 7%;align-items:start}.pd-order .pd-section-head{grid-row:1/3}.pd-order .pd-steps{margin-top:0}.pd-order .pd-guide{grid-column:2}
+ .pd-faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:7%;align-items:start}.pd-faq-list{margin-top:0}
+ .pd-related-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .pd-sticky-cta{display:none}.pd-page.has-sticky-cta .footer{padding-bottom:0}
+}
+@media(prefers-reduced-motion:reduce){.pd-sticky-cta,.pd-related-grid a,.pd-faq-list summary:after{transition:none}}
+@media print{.pd-subnav,.pd-sticky-cta,.pd-band,.pd-related,#quote form{display:none!important}}

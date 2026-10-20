@@ -16,7 +16,7 @@ const panels=products.map((p,i)=>`<article id="seal-${ids[i]}" class="range-pane
  </div>
  <div class="product-specification"><p class="eyebrow">SECURITY SEAL RANGE / 0${i+1}</p><h3 id="name-${ids[i]}">${i===0?'Container Bolt Seal':esc(p.name)}</h3><p class="product-lead">${esc(p.title)}</p><span class="application-tag">${descriptions[i]}</span>
  <dl class="specification-list"><div><dt>Application</dt><dd>${esc(p.usage)}</dd></div><div><dt>Key features</dt><dd>${esc(p.features)}</dd></div><div><dt>Construction &amp; selection</dt><dd>${esc(p.quality)}</dd></div></dl>
- <div class="product-actions"><a class="button" href="#contact" data-quote-product="${esc(p.name)}">Request a quote <span aria-hidden="true">&#8599;</span></a><a class="text-link" href="https://globalseals.pk/${p.source}">${esc(p.name)} details <span aria-hidden="true">&#8599;</span></a></div>
+ <div class="product-actions"><a class="button" href="#contact" data-quote-product="${esc(p.name)}">Request a quote <span aria-hidden="true">&#8599;</span></a><a class="text-link" href="${p.source}">${esc(p.name)} details <span aria-hidden="true">&#8599;</span></a></div>
  <p class="procurement-note">Share your application, quantity and marking requirements. We will help confirm the suitable specification.</p></div>
 </article>`).join('\n');
 const rows=products.map((p,i)=>`<tr><th scope="row"><a href="#seal-${ids[i]}" data-select-product="${i}">${esc(p.name)} &#8599;</a></th><td>${descriptions[i]}</td><td>${forms[i]}</td><td><a href="#contact" data-quote-product="${esc(p.name)}">Enquire<span class="sr-only"> about ${esc(p.name)}</span> &#8599;</a></td></tr>`).join('');
