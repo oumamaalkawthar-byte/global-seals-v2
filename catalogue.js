@@ -1,101 +1,57 @@
-/* Accessible progressive enhancement. Product copy and links remain in HTML. */
+﻿/* Raised-center product carousel; native links remain usable without JavaScript. */
 (() => {
- 'use strict';
- const root=document.querySelector('#product');if(!root)return;
- const tabs=[...root.querySelectorAll('[data-product-tab]')];
- const panels=[...root.querySelectorAll('[data-product-panel]')];
- const selector=root.querySelector('.range-selector');
- const status=root.querySelector('#range-status');
- const reduced=matchMedia('(prefers-reduced-motion:reduce)');
- const pointer=matchMedia('(hover:hover) and (pointer:fine)');
- let active=0;
- selector.setAttribute('role','tablist');
- tabs.forEach((tab,i)=>{
-  tab.setAttribute('role','tab');tab.setAttribute('aria-controls',panels[i].id);
-  panels[i].setAttribute('role','tabpanel');panels[i].setAttribute('aria-labelledby',tab.id);panels[i].tabIndex=0;
- });
- root.classList.add('range-enhanced');
- function select(index,{focus=false,updateURL=false,announce=true}={}){
-  if(index<0||index>=panels.length)return;
-  active=index;
-  panels.forEach((panel,i)=>{panel.hidden=i!==index;});
-  tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;});
-  if(focus)tabs[index].focus({preventScroll:true});
-  if(updateURL)history.replaceState(null,'','#'+panels[index].id);
-  if(announce)status.textContent=tabs[index].querySelector('strong').textContent+' selected.';
+ const root=document.querySelector('.seal-carousel'); if(!root)return;
+ const viewport=root.querySelector('.seal-viewport');
+ const cards=[...root.querySelectorAll('.seal-card')], controls=root.querySelector('.seal-controls');
+ const play=root.querySelector('[data-carousel-play]'), quote=root.querySelector('.seal-quote');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let active=2, playing=!reduced.matches, visible=false, timer, frame, touching=false;
+ root.classList.add('is-enhanced'); controls.hidden=false;
+ function render(){
+  cards.forEach((card,i)=>{card.classList.toggle('is-active',i===active);if(i===active)card.setAttribute('aria-current','true');else card.removeAttribute('aria-current');});
+  const card=cards[active];
+  root.querySelector('.seal-position').textContent=String(active+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+  quote.dataset.quoteProduct=card.dataset.cardProduct;
+  root.querySelector('.seal-selected-name').textContent=card.dataset.cardProduct;
+  quote.setAttribute('aria-label','Get a quote for '+card.dataset.cardProduct);
+  play.textContent=playing?'Pause':'Play';
+  play.setAttribute('aria-label',playing?'Pause product auto-scroll':'Start product auto-scroll');
  }
- // Autoplay: advance every 3s while the range is on screen, including under a mouse pointer. Keyboard focus pauses it; choosing a product or touching
- // the range stops it for good so content never changes under someone reading it. The button is the explicit control.
- const INTERVAL=3000;let playing=!reduced.matches,inView=false,focused=false,timer=0;
- const autoplay=document.createElement('div');autoplay.className='range-autoplay';
- autoplay.innerHTML='<span>Auto-rotating products</span><button type="button" aria-pressed="false"></button>';
- const autoButton=autoplay.querySelector('button');selector.after(autoplay);
- root.style.setProperty('--range-interval',INTERVAL+'ms');
- function running(){return playing&&inView&&!focused&&!document.hidden;}
- function renderButton(){autoButton.innerHTML=playing?'<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0h3v10H1zM6 0h3v10H6z"/></svg>Pause':'<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>Play';autoButton.setAttribute('aria-label',playing?'Pause product auto-rotation':'Start product auto-rotation');autoplay.firstChild.textContent=playing?'Auto-rotating products':'Auto-rotation paused';}
  function schedule(){
-  clearTimeout(timer);root.classList.remove('range-playing');
-  if(!running())return;
-  void root.offsetWidth;// restart the progress line from zero
-  root.classList.add('range-playing');
-  timer=setTimeout(()=>{select((active+1)%panels.length,{announce:false});schedule();},INTERVAL);
+  clearTimeout(timer);
+  if(playing&&visible&&!document.hidden&&(!root.contains(document.activeElement)||controls.contains(document.activeElement))&&!touching)
+   timer=setTimeout(()=>go(active+1),4000);
  }
- function stop(){if(!playing)return;playing=false;renderButton();schedule();}
- autoButton.addEventListener('click',()=>{playing=!playing;renderButton();schedule();});
- new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;schedule();},{threshold:.35}).observe(root.querySelector('.range-panels'));
- root.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'&&!autoplay.contains(e.target))stop();});
- root.addEventListener('focusin',e=>{if(!autoplay.contains(e.target)&&e.target.matches(':focus-visible')){focused=true;schedule();}});
- root.addEventListener('focusout',()=>{focused=root.contains(document.activeElement)&&!autoplay.contains(document.activeElement);schedule();});
+ function go(index){
+  active=(index+cards.length)%cards.length;render();
+  const card=cards[active];
+  viewport.scrollTo({left:card.offsetLeft-(viewport.clientWidth-card.offsetWidth)/2,behavior:reduced.matches?'instant':'smooth'});
+  schedule();
+ }
+ root.querySelector('[data-carousel-prev]').addEventListener('click',()=>go(active-1));
+ root.querySelector('[data-carousel-next]').addEventListener('click',()=>go(active+1));
+ play.addEventListener('click',()=>{playing=!playing;render();schedule();});
+ viewport.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(active+(e.key==='ArrowRight'?1:-1));}});
+ viewport.addEventListener('scroll',()=>{
+  cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{
+   const center=viewport.scrollLeft+viewport.clientWidth/2;
+   let nearest=0;cards.forEach((card,i)=>{if(Math.abs(card.offsetLeft+card.offsetWidth/2-center)<Math.abs(cards[nearest].offsetLeft+cards[nearest].offsetWidth/2-center))nearest=i;});
+   if(nearest!==active){active=nearest;render();}schedule();
+  });
+ },{passive:true});
+ viewport.addEventListener('pointerdown',()=>{touching=true;clearTimeout(timer);});
+ window.addEventListener('pointerup',()=>{if(touching){touching=false;schedule();}});
+ window.addEventListener('pointercancel',()=>{touching=false;schedule();});
+ root.addEventListener('focusin',schedule);
+ root.addEventListener('focusout',()=>setTimeout(schedule,0));
  document.addEventListener('visibilitychange',schedule);
- reduced.addEventListener('change',()=>{if(reduced.matches)stop();});
- renderButton();
- function selectHash(){const i=panels.findIndex(panel=>'#'+panel.id===location.hash);if(i>=0){stop();select(i,{announce:false});}}
- select(0,{announce:false});selectHash();
- addEventListener('hashchange',selectHash);
- tabs.forEach((tab,i)=>{
-  tab.addEventListener('click',event=>{event.preventDefault();stop();select(i,{updateURL:true});});
-  tab.addEventListener('keydown',event=>{
-   let target=i;
-   if(event.key==='ArrowRight')target=(i+1)%tabs.length;
-   else if(event.key==='ArrowLeft')target=(i+tabs.length-1)%tabs.length;
-   else if(event.key==='Home')target=0;
-   else if(event.key==='End')target=tabs.length-1;
-   else if(event.key===' '){event.preventDefault();stop();select(i);return;}
-   else return;
-   event.preventDefault();stop();select(target,{focus:true});
-  });
- });
- root.querySelectorAll('[data-select-product]').forEach(link=>link.addEventListener('click',event=>{
-  event.preventDefault();stop();select(Number(link.dataset.selectProduct),{updateURL:true});
-  panels[active].focus({preventScroll:true});panels[active].scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
- }));
- root.querySelector('.range-compare-link').addEventListener('click',()=>{root.querySelector('#range-comparison').open=true;});
- const dialog=root.querySelector('#product-viewer');
- const viewerImage=root.querySelector('#viewer-image');
- const viewerTitle=root.querySelector('#viewer-title');
- let opener=null;
- if(typeof dialog.showModal==='function')root.querySelectorAll('[data-zoom]').forEach(button=>{
-  button.hidden=false;
-  button.addEventListener('click',()=>{
-   const index=Number(button.dataset.zoom),image=panels[index].querySelector('.studio-product');
-   opener=button;viewerImage.src=image.getAttribute('src');viewerImage.alt=image.alt;
-   viewerTitle.textContent=tabs[index].querySelector('strong').textContent;
-   dialog.showModal();
-  });
- });
- root.querySelector('#viewer-close').addEventListener('click',()=>dialog.close());
- dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
- dialog.addEventListener('close',()=>{opener?.focus({preventScroll:true});});
- // Restrained perspective, only for fine pointers; never a simulated 360-degree model.
- panels.forEach(panel=>{
-  const stage=panel.querySelector('.studio-stage'),image=panel.querySelector('.studio-product');
-  const reset=()=>{image.style.removeProperty('--tilt-x');image.style.removeProperty('--tilt-y');};
-  stage.addEventListener('pointermove',event=>{
-   if(reduced.matches||!pointer.matches)return;
-   const r=stage.getBoundingClientRect();
-   image.style.setProperty('--tilt-x',((.5-(event.clientY-r.top)/r.height)*6).toFixed(2)+'deg');
-   image.style.setProperty('--tilt-y',(((event.clientX-r.left)/r.width-.5)*10).toFixed(2)+'deg');
-  },{passive:true});
-  stage.addEventListener('pointerleave',reset);reduced.addEventListener('change',reset);pointer.addEventListener('change',reset);
- });
+ reduced.addEventListener('change',()=>{playing=!reduced.matches;render();schedule();});
+ if('IntersectionObserver' in window){
+  new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)root.classList.add('has-entered');schedule();},{threshold:.2}).observe(viewport);
+ }else{visible=true;root.classList.add('has-entered');}
+ function align(){const card=cards[active];viewport.scrollTo({left:card.offsetLeft-(viewport.clientWidth-card.offsetWidth)/2,behavior:'instant'});}
+ if('ResizeObserver' in window)new ResizeObserver(align).observe(viewport);
+ align();
+ root.querySelector('a[href="#range-comparison"]').addEventListener('click',()=>{document.querySelector('#range-comparison').open=true;});
+ render();schedule();
 })();

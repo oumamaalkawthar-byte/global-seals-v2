@@ -38,3 +38,5 @@ html=html.replace(/<script id="range-schema" type="application\/ld\+json">[\s\S]
 html=html.replace('</head>','<script id="range-schema" type="application/ld+json">'+JSON.stringify(schema)+'</script>\n</head>');
 fs.writeFileSync(path.join(root,'index.html'),html);
 console.log('Built six static product panels, real product links and ItemList structured data.');
+
+require('./build-carousel.cjs');
