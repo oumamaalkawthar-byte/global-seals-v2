@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none"><defs><linearGradient id="kraft" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d5ae78"/><stop offset="1" stop-color="#8e6a3e"/></linearGradient><linearGradient id="frame" x2="1"><stop stop-color="#8ba2ac"/><stop offset=".5" stop-color="#dfe9ec"/><stop offset="1" stop-color="#6c848e"/></linearGradient><pattern id="mesh" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M0 0 18 18M18 0 0 18" stroke="#c4d3d9" stroke-width="1.4" opacity=".75"/></pattern><radialGradient id="shadow"><stop stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="200" cy="344" rx="175" ry="22" fill="url(#shadow)"/>
+<g stroke="#5d4426" stroke-width="2" stroke-opacity=".5"><rect x="78" y="208" width="112" height="112" fill="url(#kraft)"/><rect x="190" y="228" width="132" height="92" fill="url(#kraft)"/><rect x="104" y="122" width="96" height="86" fill="url(#kraft)"/><rect x="204" y="150" width="104" height="78" fill="url(#kraft)"/></g>
+<g fill="#c92f28"><rect x="78" y="252" width="112" height="14"/><rect x="190" y="264" width="132" height="14"/><rect x="104" y="158" width="96" height="12"/></g>
+<rect x="60" y="62" width="280" height="262" fill="url(#mesh)"/>
+<g fill="url(#frame)"><rect x="54" y="56" width="10" height="272" rx="2"/><rect x="336" y="56" width="10" height="272" rx="2"/><rect x="54" y="56" width="292" height="10" rx="2"/><rect x="54" y="318" width="292" height="10" rx="2"/><rect x="196" y="56" width="8" height="272" rx="2"/></g>
+<rect x="210" y="186" width="34" height="18" rx="4" fill="#3a525d"/>
+<rect x="166" y="186" width="34" height="18" rx="4" fill="#3a525d"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none"><defs><linearGradient id="bag" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7f9aa5"/><stop offset="1" stop-color="#2f4a57"/></linearGradient><radialGradient id="shadow"><stop stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="200" cy="348" rx="150" ry="22" fill="url(#shadow)"/>
+<path d="M176 96c-10 30-40 40-74 88-32 46-28 104-6 132 24 30 184 30 208 0 22-28 26-86-6-132-34-48-64-58-74-88Z" fill="url(#bag)"/>
+<path d="M176 96c-10 30-40 40-74 88-32 46-28 104-6 132" stroke="#b9cfd7" stroke-width="2" opacity=".55"/>
+<g stroke="#20333c" stroke-width="2" opacity=".45"><path d="M150 150c-6 40 2 100 20 160M206 128c2 50 4 120-2 190M248 150c8 44 6 110-12 164"/></g>
+<path d="M160 70c14 14 66 14 80 0l-6 30c-14 10-54 10-68 0Z" fill="#5e7884"/>
+<path d="M150 58c18 18 82 18 100 0" stroke="#3e5864" stroke-width="10" stroke-linecap="round"/>
+<path d="M172 100h56" stroke="#1b2e37" stroke-width="12" stroke-linecap="round"/>
+<rect x="138" y="214" width="124" height="46" rx="6" fill="#1b2e37" opacity=".55"/>
+<text x="200" y="244" fill="#d6e5ea" font-family="monospace" font-size="18" font-weight="700" text-anchor="middle" letter-spacing="5">SECURE</text>
+</svg>

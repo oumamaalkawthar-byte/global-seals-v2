@@ -67,8 +67,8 @@ function page(p,i){
 <link rel="icon" href="brand-icon.svg" type="image/svg+xml">
 <link rel="preload" as="image" href="${p.image}" fetchpriority="high">
 ${fontLinks}
-<link rel="stylesheet" href="styles.css?v=4"><link rel="stylesheet" href="sections.css?v=2"><link rel="stylesheet" href="product.css?v=2">
-<script src="app.js?v=sections-2" defer></script><script src="product.js?v=1" defer></script>
+<link rel="stylesheet" href="styles.css?v=4"><link rel="stylesheet" href="sections.css?v=2"><link rel="stylesheet" href="product.css?v=4">
+<script src="app.js?v=sections-2" defer></script><script src="product.js?v=3" defer></script>
 ${schema.map(o=>'<script type="application/ld+json">'+JSON.stringify(o)+'</script>').join('\n')}
 </head>
 <body class="pd-page" style="--product-accent:${p.color}">

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none"><defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c3d1d7"/><stop offset="1" stop-color="#7d939d"/></linearGradient><linearGradient id="bar" x2="1"><stop stop-color="#8ea6b0"/><stop offset=".5" stop-color="#eef4f6"/><stop offset="1" stop-color="#6f8893"/></linearGradient><radialGradient id="shadow"><stop stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="200" cy="340" rx="175" ry="22" fill="url(#shadow)"/>
+<rect x="72" y="56" width="256" height="238" rx="6" fill="url(#body)"/>
+<rect x="72" y="56" width="256" height="238" rx="6" stroke="#e8f0f2" stroke-opacity=".6" stroke-width="2"/>
+<path d="M200 62V290" stroke="#5d7581" stroke-width="2.5"/>
+<g fill="url(#bar)"><rect x="104" y="66" width="6" height="220" rx="2"/><rect x="160" y="66" width="6" height="220" rx="2"/><rect x="234" y="66" width="6" height="220" rx="2"/><rect x="290" y="66" width="6" height="220" rx="2"/></g>
+<g fill="#4d6772"><rect x="96" y="176" width="22" height="9" rx="2"/><rect x="152" y="176" width="22" height="9" rx="2"/><rect x="226" y="176" width="22" height="9" rx="2"/><rect x="282" y="176" width="22" height="9" rx="2"/></g>
+<rect x="60" y="294" width="280" height="16" rx="3" fill="#1c3442"/>
+<g fill="#d8382f"><rect x="66" y="298" width="30" height="8" rx="2"/><rect x="304" y="298" width="30" height="8" rx="2"/></g>
+<g fill="#ffb13b"><rect x="98" y="298" width="12" height="8" rx="2"/><rect x="290" y="298" width="12" height="8" rx="2"/></g>
+<g fill="#0b1e28"><rect x="88" y="310" width="62" height="30" rx="8"/><rect x="250" y="310" width="62" height="30" rx="8"/></g>
+<path d="M130 310v32M270 310v32" stroke="#22394a" stroke-width="3"/>
+<path d="M78 62H322" stroke="#fff" stroke-opacity=".7" stroke-width="2"/>
+<text x="200" y="128" fill="#41606d" opacity=".45" font-family="monospace" font-size="13" letter-spacing="4" text-anchor="middle">CARGO 24</text>
+</svg>

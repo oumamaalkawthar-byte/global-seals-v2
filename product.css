@@ -31,7 +31,20 @@
 /* FAQ */
 .pd-faq{background:var(--paper)}.pd-faq-list{margin-top:24px;border-top:1px solid #c8d5d4}.pd-faq-list details{border-bottom:1px solid #c8d5d4}.pd-faq-list summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:14px 0;cursor:pointer;font-size:16px;font-weight:600;line-height:1.45}.pd-faq-list summary::-webkit-details-marker{display:none}.pd-faq-list summary:after{content:'+';flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #c8d5d4;color:var(--cyan);font-size:20px;font-weight:400;transition:transform .2s}.pd-faq-list details[open] summary:after{transform:rotate(45deg)}.pd-faq-list details p{padding:0 0 18px;color:#3d5560;max-width:720px}
 /* Related products */
-.pd-related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;list-style:none;margin:28px 0 0;padding:0}.pd-related-grid a{display:flex;flex-direction:column;height:100%;padding:12px 12px 16px;border:1px solid #dbe4e1;border-radius:var(--radius);background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}.pd-related-grid a:hover{border-color:var(--cyan);box-shadow:0 18px 32px -24px #102d3b55;transform:translateY(-2px)}.pd-related-media{display:grid;place-items:center;aspect-ratio:4/3;border-radius:var(--radius-sm);background:linear-gradient(160deg,#f3f7f6,#e1eae8)}.pd-related-media img{width:70%;height:90%;object-fit:contain}.pd-related-grid strong{margin-top:12px;font-size:15px}.pd-related-grid a>span:last-child{margin-top:4px;font-size:13px;line-height:1.5;color:var(--muted)}
+/* Related products: one row of embossed cards. Every 3s the next card lifts and its seal rises (product.js); the row scrolls itself on narrow screens. */
+.pd-related{background:linear-gradient(180deg,#eef2f0,#e5ebe8)}
+.pd-related-grid{--emboss:#e9eeec;position:relative;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;list-style:none;margin:16px -8px 0;padding:34px 8px 40px}.pd-related-grid::-webkit-scrollbar{display:none}
+.pd-related-grid>li{flex:0 0 min(64%,240px);scroll-snap-align:center}
+.pd-related-grid a{position:relative;display:flex;flex-direction:column;height:100%;padding:14px 14px 18px;border-radius:calc(var(--radius) + 4px);background:var(--emboss);box-shadow:8px 8px 18px #c3ccc8,-8px -8px 18px #fff;transition:transform .7s cubic-bezier(.22,1,.36,1),box-shadow .7s cubic-bezier(.22,1,.36,1)}
+.pd-related-media{display:grid;place-items:center;aspect-ratio:1/1;border-radius:var(--radius);background:var(--emboss);box-shadow:inset 6px 6px 12px #cdd5d1,inset -6px -6px 12px #fff}
+.pd-related-media img{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 10px 10px #173f3d33);transition:transform .8s cubic-bezier(.34,1.4,.64,1),filter .8s}
+.pd-related-grid strong{margin-top:14px;font-size:15px;transition:color .4s}.pd-related-grid a>span:last-child{margin-top:4px;font-size:13px;line-height:1.5;color:var(--muted)}
+.pd-related-grid a:after{content:"";position:absolute;left:50%;bottom:8px;width:28px;height:3px;border-radius:2px;background:var(--yellow);transform:translateX(-50%) scaleX(0);transition:transform .5s}
+/* Lifted state: the auto-cycled card, or one under the pointer. */
+.pd-related-grid>li.is-active a,.pd-related-grid a:hover{transform:translateY(-16px);box-shadow:14px 24px 34px #b4bfba,-10px -10px 22px #fff}
+.pd-related-grid>li.is-active .pd-related-media img,.pd-related-grid a:hover .pd-related-media img{transform:translateY(-12px) scale(1.1) rotate(-5deg);filter:drop-shadow(0 22px 16px #173f3d40)}
+.pd-related-grid>li.is-active strong{color:#006f93}.pd-related-grid>li.is-active a:after{transform:translateX(-50%) scaleX(1)}
+.pd-related-head{max-width:none;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}.pd-related-toggle{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid #c3cfcc;border-radius:999px;background:var(--emboss,#e9eeec);font-size:13px;font-weight:600;color:var(--ink);box-shadow:4px 4px 10px #c9d1cd,-4px -4px 10px #fff}.pd-related-toggle svg{width:10px;height:10px;fill:currentColor}
 /* Quote section reuses the homepage contact styles; keep it clear of the sticky bar. */
 .pd-page #quote{scroll-margin-top:12px}
 /* Bottom CTA bar on phones and tablets: appears once the hero buttons scroll away, hides at the quote form. */
@@ -41,7 +54,7 @@
  .pd-breadcrumb{padding:18px 6% 0}.pd-hero{padding:16px 6% 64px}.pd-actions{flex-direction:row;flex-wrap:wrap}.pd-primary{width:auto;padding-inline:28px}.pd-section{padding:72px 6%}.pd-section-head h2{font-size:48px}
  .pd-specs{padding:4px 28px}.pd-specs>div{grid-template-columns:200px 1fr;gap:24px;padding:20px 0}
  .pd-use-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.pd-band{margin:0 6%;padding:40px;grid-template-columns:1fr auto;align-items:center}.pd-band-actions{min-width:240px}
- .pd-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.pd-related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .pd-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.pd-related-grid>li{flex-basis:min(30%,240px)}
 }
 @media(min-width:1000px){
  .pd-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"media head" "media body";grid-template-rows:auto 1fr;column-gap:7%;row-gap:18px;align-items:start;padding:20px max(6%,calc((100vw - 1280px)/2)) 80px}
@@ -53,8 +66,8 @@
  .pd-section{scroll-margin-top:72px}.pd-overview{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:7%;align-items:start}.pd-overview .pd-specs{margin-top:0}
  .pd-order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px 7%;align-items:start}.pd-order .pd-section-head{grid-row:1/3}.pd-order .pd-steps{margin-top:0}.pd-order .pd-guide{grid-column:2}
  .pd-faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:7%;align-items:start}.pd-faq-list{margin-top:0}
- .pd-related-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .pd-related-grid{overflow:visible;padding-inline:0;margin-inline:0}.pd-related-grid>li{flex:1 1 0;min-width:0}
  .pd-sticky-cta{display:none}.pd-page.has-sticky-cta .footer{padding-bottom:0}
 }
-@media(prefers-reduced-motion:reduce){.pd-sticky-cta,.pd-related-grid a,.pd-faq-list summary:after{transition:none}}
+@media(prefers-reduced-motion:reduce){.pd-sticky-cta,.pd-related-grid a,.pd-related-media img,.pd-faq-list summary:after{transition:none}}
 @media print{.pd-subnav,.pd-sticky-cta,.pd-band,.pd-related,#quote form{display:none!important}}

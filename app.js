@@ -35,7 +35,7 @@ document.querySelectorAll('[data-quote-product]').forEach(link => link.addEventL
 // Scroll reveal. Only elements still below the fold are hidden, so nothing on screen at load flashes or waits.
 // Siblings in a group are staggered slightly. Skipped entirely for reduced motion or without IntersectionObserver.
 if (!reducedMotion.matches && 'IntersectionObserver' in window) {
-  const groups = ['.range-heading', '.section-heading', '.application-card', '.about-mark', '.about-copy', '.industries-intro', '.industry-list article', '.blog-header', '.blog-featured', '.blog-card', '.perspectives-heading', '.perspectives-track', '.contact-intro', '.quote-form'];
+  const groups = ['.range-heading', '.sectors-head', '.sector', '.about-mark', '.about-copy', '.blog-header', '.blog-featured', '.blog-card', '.perspectives-heading', '.perspectives-track', '.contact-intro', '.quote-form'];
   const reveal = new IntersectionObserver((entries) => entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('is-in');
@@ -49,6 +49,18 @@ if (!reducedMotion.matches && 'IntersectionObserver' in window) {
     element.classList.add('reveal');
     reveal.observe(element);
   }));
+}
+
+// About logo: arm the build-up, then play it once the panel is in view. Reduced motion keeps the finished, still mark.
+const logoPanel = $('.about-mark');
+const logo = logoPanel && logoPanel.querySelector('.about-logo');
+if (logo) {
+  if (reducedMotion.matches) logo.pauseAnimations?.();
+  else if ('IntersectionObserver' in window) {
+    logoPanel.classList.add('logo-armed');
+    const logoView = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { logoPanel.classList.add('logo-play'); logoView.disconnect(); } }, { threshold: 0.35 });
+    logoView.observe(logoPanel);
+  }
 }
 
 // Links to the comparison from outside the product section should land on it open, not collapsed.

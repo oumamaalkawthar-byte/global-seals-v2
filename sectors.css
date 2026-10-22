@@ -1,0 +1,28 @@
+/* "Not just for containers": where each seal type is used. Dark poster band; every tile is a spotlit scene with
+   the matching seal, linking to that product's page. Mobile first: 2 columns, the feature tile full width. */
+.sectors{position:relative;isolation:isolate;overflow:hidden;background:var(--navy-deep);color:#fff;padding:72px 5%}
+.sectors:before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 55% 40% at 15% 0%,#008bb740,transparent 70%),radial-gradient(ellipse 45% 35% at 95% 100%,#f0d16614,transparent 70%)}
+.sectors-inner{max-width:1280px;margin:0 auto}
+.sectors-head{display:grid;gap:20px;margin-bottom:30px}.sectors .eyebrow{color:#81ccdc}.sectors h2{font-size:42px;line-height:1.02;color:#fff}.sectors h2>span{color:#78c3d3}
+.sectors-intro{display:flex;flex-direction:column;align-items:flex-start;gap:18px}.sectors-intro p{max-width:460px;color:#b6cbd2;font-size:15px;line-height:1.75}.sectors-intro .button{min-height:50px}
+.sector-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.sector>a{display:flex;flex-direction:column;height:100%;overflow:hidden;border-radius:var(--radius);background:#0f2f3f;border:1px solid #ffffff14;transition:border-color .3s,transform .3s,box-shadow .3s}
+.sector>a:hover{border-color:#81ccdc66;transform:translateY(-3px);box-shadow:0 26px 40px -26px #000}
+/* Spotlight from above and a floor that fades into the card, as in the poster references. */
+.sector-art{position:relative;aspect-ratio:1/1;overflow:hidden;background:radial-gradient(ellipse 62% 55% at 50% 18%,#5b8ca2 0%,#21495c 40%,#0c2734 100%)}
+.sector-art:before{content:'';position:absolute;left:50%;top:-12%;width:52%;height:78%;transform:translateX(-50%);background:linear-gradient(#ffffff26,transparent);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);filter:blur(5px)}
+.sector-art:after{content:'';position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(transparent,#0f2f3f)}
+.sector-scene{position:absolute;z-index:1;left:7%;top:8%;width:86%;height:86%;object-fit:contain;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.sector-seal{position:absolute;z-index:2;right:var(--sx);top:var(--sy);width:var(--sw);height:auto;filter:drop-shadow(0 14px 14px #000a);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+@media(hover:hover){.sector>a:hover .sector-scene{transform:scale(1.04)}.sector>a:hover .sector-seal{transform:translateY(-8px) rotate(-5deg)}}
+.sector-copy{position:relative;z-index:2;display:flex;flex-direction:column;gap:6px;flex:1;margin-top:-10px;padding:0 14px 16px}
+.sector-index{font:12px monospace;letter-spacing:1px;color:#81ccdc}.sector-copy h3{font-size:16px;line-height:1.3;font-weight:700;color:#fff}.sector-copy p{font-size:13px;line-height:1.55;color:#b6cbd2}
+.sector-fits{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}.sector-fits>span:not(.sr-only){display:inline-block;padding:4px 10px;border-radius:999px;background:#f0d1661f;color:var(--yellow);font-size:12px;font-weight:600;line-height:1.5}
+.sector-feature{grid-column:1/-1}.sector-feature .sector-art{aspect-ratio:16/10}.sector-feature .sector-copy h3{font:700 28px/1.05 var(--heading);letter-spacing:-.01em}.sector-feature .sector-copy p{font-size:14px}
+/* The last tile spans two columns so the grid closes evenly at 2, 3 and 4 columns. */
+.sector-wide{grid-column:span 2}.sector-wide .sector-art{aspect-ratio:2/1}
+.sectors-note{margin-top:22px;font-size:13px;line-height:1.7;color:#8eabb5;max-width:640px}
+@media(max-width:360px){.sectors h2{font-size:36px}.sector-copy{padding:0 12px 14px}.sector-copy h3{font-size:15px}}
+@media(min-width:701px){.sectors{padding:96px 6%}.sectors h2{font-size:56px}.sector-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.sector-feature{grid-column:span 2;grid-row:span 2}.sector-feature>a .sector-art{aspect-ratio:auto;flex:1;min-height:320px}.sector-feature .sector-copy{flex:0 0 auto}.sector-feature .sector-seal{width:calc(var(--sw) * 1.1)}.sector-copy{padding:0 18px 20px}.sector-copy h3{font-size:17px}}
+@media(min-width:1000px){.sectors{padding:110px max(6%,calc((100vw - 1280px)/2))}.sectors h2{font-size:clamp(56px,4.3vw,64px)}.sectors-head{grid-template-columns:1fr auto;align-items:end;gap:40px;margin-bottom:40px}.sectors-intro{max-width:400px}.sector-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.sector-feature .sector-copy h3{font-size:34px}}
+@media(prefers-reduced-motion:reduce){.sector>a,.sector-scene,.sector-seal{transition:none}}

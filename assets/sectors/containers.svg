@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none"><defs><linearGradient id="side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1f5470"/><stop offset="1" stop-color="#0e2b3b"/></linearGradient><linearGradient id="door" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2d6f93"/><stop offset="1" stop-color="#173f57"/></linearGradient><linearGradient id="bar" x2="1"><stop stop-color="#9fb7c2"/><stop offset=".5" stop-color="#e3edf0"/><stop offset="1" stop-color="#7b939e"/></linearGradient><radialGradient id="shadow"><stop stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="205" cy="322" rx="190" ry="26" fill="url(#shadow)"/>
+<path d="M30 152 246 118V304L30 286Z" fill="url(#side)"/>
+<g stroke="#0b2534" stroke-width="3" opacity=".55"><path d="M48 150V288M66 147V289M84 144V291M102 141V292M120 138V294M138 135V295M156 132V297M174 129V298M192 126V300M210 123V301M228 121V303"/></g>
+<g stroke="#3c7c9c" stroke-width="1.2" opacity=".5"><path d="M51 150V288M69 147V289M87 144V291M105 141V292M123 138V294M141 135V295M159 132V297M177 129V298M195 126V300M213 123V301M231 121V303"/></g>
+<path d="M246 118 372 140V312L246 304Z" fill="url(#door)"/>
+<path d="M309 129V308" stroke="#0e2b3b" stroke-width="2.5"/>
+<g fill="url(#bar)"><rect x="262" y="128" width="5" height="174" rx="2"/><rect x="286" y="132" width="5" height="173" rx="2"/><rect x="327" y="136" width="5" height="172" rx="2"/><rect x="350" y="140" width="5" height="170" rx="2"/></g>
+<g fill="#cfdde2"><rect x="255" y="206" width="19" height="7" rx="2"/><rect x="279" y="208" width="19" height="7" rx="2"/><rect x="320" y="212" width="19" height="7" rx="2"/><rect x="343" y="214" width="19" height="7" rx="2"/></g>
+<g fill="#0e2b3b" opacity=".7"><rect x="258" y="150" width="11" height="8"/><rect x="258" y="270" width="11" height="8"/><rect x="346" y="160" width="11" height="8"/><rect x="346" y="282" width="11" height="8"/></g>
+<path d="M30 152 246 118 372 140" stroke="#8cc5da" stroke-width="2" opacity=".9"/>
+<path d="M246 118V304" stroke="#7fb6cc" stroke-width="1.5" opacity=".7"/>
+<text x="60" y="190" fill="#cfe3ea" opacity=".55" font-family="monospace" font-size="15" letter-spacing="3" transform="rotate(-8 60 190)">GSXU 240 817</text>
+</svg>

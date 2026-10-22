@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none"><defs><linearGradient id="front" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3f7896"/><stop offset="1" stop-color="#1a4258"/></linearGradient><linearGradient id="side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#245068"/><stop offset="1" stop-color="#0f2d3d"/></linearGradient><linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7fb2c8"/><stop offset="1" stop-color="#3f7896"/></linearGradient><radialGradient id="shadow"><stop stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<ellipse cx="200" cy="340" rx="165" ry="22" fill="url(#shadow)"/>
+<path d="M64 138 234 120 340 150 170 172Z" fill="url(#top)"/>
+<path d="M150 146 254 135" stroke="#0b2230" stroke-width="9" stroke-linecap="round"/>
+<path d="M64 138 170 172V326L64 290Z" fill="url(#side)"/>
+<path d="M170 172 340 150V300L170 326Z" fill="url(#front)"/>
+<path d="M170 172 340 150" stroke="#a6d4e4" stroke-width="2" opacity=".8"/>
+<rect x="210" y="196" width="96" height="44" rx="4" fill="#e8f0f2" transform="skewY(-7)" transform-origin="210 196"/>
+<g fill="#7a8f97" transform="skewY(-7)" transform-origin="210 196"><rect x="220" y="206" width="70" height="6" rx="3"/><rect x="220" y="220" width="50" height="5" rx="2"/></g>
+<rect x="246" y="250" width="26" height="34" rx="4" fill="#c7d6dc" transform="skewY(-7)" transform-origin="246 250"/>
+<path d="M252 252v-14a7 7 0 0 1 14 0v14" stroke="#c7d6dc" stroke-width="4" transform="skewY(-7)" transform-origin="246 250"/>
+</svg>
