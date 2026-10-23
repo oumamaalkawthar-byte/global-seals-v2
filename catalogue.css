@@ -56,3 +56,10 @@
 .seal-selection span{margin:0 10px;color:#b1c4c7}.seal-selection strong{font-size:12px;letter-spacing:0;color:var(--ink)}
 .seal-cta{margin-top:14px}
 @media(max-width:700px){.seal-card{height:355px}.seal-controls{gap:10px}.seal-card-caption{padding:14px 12px}.seal-selected-name{display:inline-block}}
+/* Catalogue photographs retain their complete original frame. */
+.seal-card{background:#fff}
+.seal-card:before{opacity:.05}
+.seal-card img{position:absolute;top:62px;left:0;width:100%;height:calc(100% - 162px);padding:0 12px;object-fit:contain;filter:none}
+.seal-card-label{z-index:1;background:#f1f6f5eb;border-color:#dce7e4;font-size:9px}
+.seal-card-caption{z-index:1}
+@media(max-width:700px){.seal-card img{top:56px;height:calc(100% - 150px);padding:0 10px}}
