@@ -1,4 +1,4 @@
-/* Scene rendering: one frame per scroll/resize; no motion while scroll is idle. */
+/* Scene rendering: eases toward the scroll position on scroll/resize, then stops; no motion while scroll is idle. */
 (() => {
  'use strict';
  const story=document.querySelector('#journey');
@@ -10,16 +10,26 @@
  const buttons=[...document.querySelectorAll('[data-story-progress]')];
  const hero=document.querySelector('#hero-copy'),copy=document.querySelector('#chapter-copy');
  let svg=null,parts={},pending=false,manual=0,lastChapter='';
+ // Eased playback: the scene glides toward the scroll position instead of jumping with each wheel notch,
+ // and mobile states blend into each other instead of snapping. The frame loop stops once it has arrived.
+ let shownProgress=null,shownP=null,lastFrame=0;
+ const ease=(from,to,dt,ms)=>from+(to-from)*(1-Math.exp(-dt/ms));
  const trans=(id,value)=>parts[id]?.setAttribute('transform',value);
  const opacity=(id,value)=>parts[id]?.setAttribute('opacity',String(value));
- function render() {
+ function render(now=performance.now()) {
   pending=false;
   const bounds=story.getBoundingClientRect();
-  const progress=still.matches||short.matches?manual:SealStory.clamp(-bounds.top/Math.max(1,story.offsetHeight-sticky.offsetHeight));
+  const target=still.matches||short.matches?manual:SealStory.clamp(-bounds.top/Math.max(1,story.offsetHeight-sticky.offsetHeight));
   // Mobile uses fewer controlled states within a shorter vertical storyboard.
   const mobileStates=[0,.10,.23,.30,.38,.405,.44,.48,.56,.65,.69,.75,.79,.825,.87,.92,.98];
-  const p=mobile.matches && !still.matches && !short.matches && progress>.055
-   ? mobileStates[Math.min(mobileStates.length-1,Math.floor(progress*(mobileStates.length-1))+1)] : progress;
+  const targetP=mobile.matches && !still.matches && !short.matches && target>.055
+   ? mobileStates[Math.min(mobileStates.length-1,Math.floor(target*(mobileStates.length-1))+1)] : target;
+  const dt=Math.min(64,Math.max(0,now-(lastFrame||now)));lastFrame=now;
+  if(still.matches||shownP===null){shownProgress=target;shownP=targetP;}
+  else{shownProgress=ease(shownProgress,target,dt,90);shownP=ease(shownP,targetP,dt,mobile.matches?220:110);}
+  if(Math.abs(shownProgress-target)<.0004&&Math.abs(shownP-targetP)<.0004){shownProgress=target;shownP=targetP;lastFrame=0;}
+  else schedule();
+  const progress=shownProgress,p=shownP;
   const s=SealStory.sample(p);
   hero.hidden=s.hero===0;hero.style.opacity=s.hero;hero.style.transform='translateY('+(-24*(1-s.hero))+'px)';
   // Hidden links cannot remain in the keyboard focus order.
