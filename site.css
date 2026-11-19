@@ -154,3 +154,19 @@
   .product-card { transition: box-shadow .25s, border-color .25s, transform .25s; }
   .product-card:hover { transform: translateY(-4px); }
 }
+
+/* Keep the published-client caption subordinate to the wordmarks. */
+.brand-home .client-strip-top h2 {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.brand-home .stats-grid dd { font-size: clamp(32px, 4vw, 48px); }
+.brand-home .home-range .card-bottom .btn {
+  width: auto;
+  min-height: 44px;
+  padding: 10px 16px;
+  gap: 12px;
+}
+.brand-home .story-facts > div > span { color: #506976; }
