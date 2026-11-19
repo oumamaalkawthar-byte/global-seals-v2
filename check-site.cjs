@@ -5,7 +5,7 @@ const files=fs.readdirSync(root).filter(f=>f.endsWith('.html')).concat(fs.readdi
 const docs=new Map(files.map(f=>[f,fs.readFileSync(path.join(root,f),'utf8')]));
 let checked=0;
 for(const [file,html] of docs){
- if(!html.includes('site.css?v=b2b-1'))continue;
+ if(!html.includes('site.css?v=brand-2'))continue;
  checked++;
  assert.equal((html.match(/<h1(?:\s|>)/g)||[]).length,1,file+': exactly one H1');
  assert.equal((html.match(/<main(?:\s|>)/g)||[]).length,1,file+': exactly one main');
