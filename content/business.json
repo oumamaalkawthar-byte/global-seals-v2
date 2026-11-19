@@ -1,0 +1,15 @@
+{
+  "brand": "Global Seals",
+  "email": "info@globalseals.pk",
+  "phone": "+92 21 3242 1220",
+  "telephone": "+922132421220",
+  "address": "2nd Floor, Plot no Commercial-37, Block-4, KAECHS, Karachi, Pakistan",
+  "clients": ["PSO", "Shell Pakistan", "SSGC", "National Refinery", "Feroze1888 Mills", "Young's"],
+  "clientSource": "https://www.globalseals.pk/clientele.html",
+  "testimonials": [
+    {"quote": "Clear specifications help our purchasing team select a seal that fits the job.", "role": "Procurement team", "sector": "Industrial purchasing"},
+    {"quote": "Readable seal identification is an important part of our dispatch and receiving checks.", "role": "Operations team", "sector": "Logistics & dispatch"},
+    {"quote": "Discussing the locking point and marking requirements makes our enquiry more useful.", "role": "Maintenance team", "sector": "Utilities & metering"}
+  ],
+  "testimonialsApproved": false
+}

@@ -6,3 +6,6 @@ desktop.ini
 
 # Local QA leftovers
 _qa-*.html
+
+.review/
+node_modules/
