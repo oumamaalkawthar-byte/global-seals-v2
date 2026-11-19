@@ -1,6 +1,6 @@
 ﻿const groups = [
   {
-    id: 'transport', theme: 'navy', title: 'Loading trucks & freight containers',
+    id: 'transport', label: 'Transport & logistics', theme: 'navy', title: 'Loading trucks & freight containers',
     intro: 'Match the seal to the door or curtain hardware, then record its number for the receiving team.',
     alt: 'Loading bay worker checking a yellow bolt seal on a truck door',
     uses: [
@@ -9,7 +9,7 @@
     ]
   },
   {
-    id: 'distribution', quoteProduct: 'Plastic Seal', theme: 'ice', title: 'Textile sacks & bakery deliveries',
+    id: 'distribution', label: 'Textiles & food distribution', quoteProduct: 'Plastic Seal', theme: 'ice', title: 'Textile sacks & bakery deliveries',
     intro: 'Use numbered pull-tight seals on tied garment sacks and closed bakery delivery totes with compatible eyelets.',
     alt: 'Bakery dispatch worker checking the red security strap on a delivery tote',
     uses: [
@@ -18,7 +18,7 @@
     ]
   },
   {
-    id: 'utilities', theme: 'white', title: 'Electric meters, valves & cabinets',
+    id: 'utilities', label: 'Utilities & maintenance', theme: 'white', title: 'Electric meters, valves & cabinets',
     intro: 'Choose a wire closure based on the sealing holes, available clearance and your inspection procedure.',
     alt: 'Utility technician inspecting a red wire seal on an electricity meter enclosure',
     uses: [
@@ -30,16 +30,19 @@
   }
 ];
 
-module.exports = ({quote, button}) => `<nav class="wrap use-nav" aria-label="Browse industry applications">${groups.map(group => `<a href="#${group.id}">${group.title}</a>`).join('')}</nav>` +
+module.exports = ({quote, button}) => `<nav class="use-nav-shell" aria-labelledby="use-nav-title"><div class="wrap"><h2 id="use-nav-title">Browse by industry</h2><div class="use-nav">${groups.map(group => `<a href="#${group.id}"><span>${group.label}</span><span aria-hidden="true">&#8595;</span></a>`).join('')}</div></div></nav>` +
   groups.map(group => `<section class="use-case use-${group.theme}" id="${group.id}" aria-labelledby="${group.id}-title">
     <div class="wrap use-layout">
       <div class="use-heading">
         <h2 id="${group.id}-title">${group.title}</h2>
         <p class="use-intro">${group.intro}</p>
         <ul class="use-options">${group.uses.map(([title, detail, slug, product]) => `<li>
-          <h3>${title}</h3><p>${detail} <a href="${slug}.html">${product}</a></p>
+          <a class="use-option" href="${slug}.html">
+            <span><strong>${title}</strong><small>${detail}</small></span>
+            <span class="use-option-product">${product} <span aria-hidden="true">&#8599;</span></span>
+          </a>
         </li>`).join('')}</ul>
-        ${button('Get a Quote',quote(group.quoteProduct || 'Help me choose'))}
+        ${button('Get a Quote',quote(group.quoteProduct || 'Help me choose'), 'primary use-quote')}
       </div>
       <img class="use-banner" src="assets/applications/${group.id}.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="${group.alt}">
     </div>
