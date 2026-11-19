@@ -170,3 +170,14 @@
   gap: 12px;
 }
 .brand-home .story-facts > div > span { color: #506976; }
+
+/* The first photo stays in flow to reserve the original image dimensions. */
+.story-image > img { opacity: 0; transition: opacity 650ms ease; }
+.story-image > img:not(:first-child) { position: absolute; inset: 0; }
+.story-image > img.is-active { opacity: 1; }
+.story-image > span { z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .story-image > img { transition: none; }
+  .story-image > img:first-child { opacity: 1; }
+  .story-image > img:not(:first-child) { display: none; }
+}

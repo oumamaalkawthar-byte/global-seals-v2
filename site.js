@@ -33,3 +33,40 @@
  // Enable fields only after the preview handler is attached. No-JS mode cannot submit personal data.
  form.querySelector('.preview-fields').disabled=false;
 })();
+
+(() => {
+  const gallery = document.querySelector('.story-image');
+  if (!gallery) return;
+  const slides = Array.from(gallery.querySelectorAll('img'));
+  if (slides.length < 2) return;
+
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let current = 0;
+  let timer;
+  function show(index) {
+    slides[current].classList.remove('is-active');
+    slides[current].setAttribute('aria-hidden', 'true');
+    current = index;
+    slides[current].classList.add('is-active');
+    slides[current].removeAttribute('aria-hidden');
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (motion.matches) {
+      show(0);
+      return;
+    }
+    if (document.hidden || gallery.matches(':hover, :focus-within')) return;
+    timer = setTimeout(() => {
+      show((current + 1) % slides.length);
+      schedule();
+    }, 4000);
+  }
+  for (const event of ['mouseenter', 'mouseleave', 'focusin']) {
+    gallery.addEventListener(event, schedule);
+  }
+  gallery.addEventListener('focusout', () => queueMicrotask(schedule));
+  document.addEventListener('visibilitychange', schedule);
+  motion.addEventListener('change', schedule);
+  schedule();
+})();
