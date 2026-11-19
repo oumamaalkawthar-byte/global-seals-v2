@@ -4,8 +4,21 @@
   "phone": "+92 21 3242 1220",
   "telephone": "+922132421220",
   "address": "2nd Floor, Plot no Commercial-37, Block-4, KAECHS, Karachi, Pakistan",
-  "clients": ["PSO", "Shell Pakistan", "SSGC", "National Refinery", "Feroze1888 Mills", "Young's"],
+  "clients": [
+    {"name": "PSO", "logo": null},
+    {"name": "Shell Pakistan", "logo": null},
+    {"name": "SSGC", "logo": null},
+    {"name": "National Refinery", "logo": null},
+    {"name": "Feroze1888 Mills", "logo": null},
+    {"name": "Young's", "logo": null}
+  ],
   "clientSource": "https://www.globalseals.pk/clientele.html",
+  "stats": [
+    {"value": "X+", "label": "Years manufacturing in Karachi"},
+    {"value": "X+", "label": "Businesses secured"},
+    {"value": "X+", "label": "Seals supplied"},
+    {"value": "X+", "label": "Industries served"}
+  ],
   "testimonials": [
     {"quote": "Clear specifications help our purchasing team select a seal that fits the job.", "role": "Procurement team", "sector": "Industrial purchasing"},
     {"quote": "Readable seal identification is an important part of our dispatch and receiving checks.", "role": "Operations team", "sector": "Logistics & dispatch"},
